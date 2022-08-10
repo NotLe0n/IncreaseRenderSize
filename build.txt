@@ -1,0 +1,3 @@
+displayName = Increase Rendering Size
+author = NotLe0n
+version = 0.1
