@@ -8,9 +8,9 @@ internal class WallAndBlackEdit : IEdit
 {
 	public void Load()
 	{
-		IL.Terraria.Main.DoDraw_WallsAndBlacks += MoveRenderTarget;
-		IL.Terraria.GameContent.Drawing.WallDrawing.DrawWalls += OffsetDrawWalls;
-		IL.Terraria.Main.DrawBlack += OffsetDrawBlack;
+		IL_Main.DoDraw_WallsAndBlacks += MoveRenderTarget;
+		Terraria.GameContent.Drawing.IL_WallDrawing.DrawWalls += OffsetDrawWalls;
+		IL_Main.DrawBlack += OffsetDrawBlack;
 	}
 
 	private void OffsetDrawBlack(ILContext il)

@@ -8,8 +8,8 @@ internal class TileDrawingEdit : IEdit
 {
 	public void Load()
 	{
-		IL.Terraria.Main.DoDraw_Tiles_Solid += MoveRenderTarget;
-		IL.Terraria.GameContent.Drawing.TileDrawing.Draw += OffsetDraw;
+		IL_Main.DoDraw_Tiles_Solid += MoveRenderTarget;
+		Terraria.GameContent.Drawing.IL_TileDrawing.Draw += OffsetDraw;
 	}
 
 	private void OffsetDraw(ILContext il)

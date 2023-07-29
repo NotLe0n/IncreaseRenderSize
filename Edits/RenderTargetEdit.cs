@@ -7,7 +7,7 @@ internal class RenderTargetEdit : IEdit
 {
 	public void Load()
 	{
-		IL.Terraria.Main.InitTargets_int_int += IncreaseRTSize;
+		IL_Main.InitTargets_int_int += IncreaseRTSize;
 	}
 
 	private void IncreaseRTSize(ILContext il)

@@ -9,7 +9,8 @@ internal class RangeFixEdit : IEdit
 {
 	public void Load()
 	{
-		IL.Terraria.GameContent.Drawing.TileDrawing.Draw += TileRangeFix;
+		On_Main.GetScreenOverdrawOffset += On_MainOnGetScreenOverdrawOffset;
+		Terraria.GameContent.Drawing.IL_TileDrawing.Draw += TileRangeFix;
 		//IL.Terraria.GameContent.Drawing.WallDrawing.DrawWalls += WallDrawing_DrawWalls;
 	}
 

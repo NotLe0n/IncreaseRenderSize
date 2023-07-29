@@ -8,7 +8,7 @@ internal class NonSolidTileEdit : IEdit
 {
 	public void Load()
 	{
-		IL.Terraria.Main.DoDraw_Tiles_NonSolid += MoveRenderTarget;
+		IL_Main.DoDraw_Tiles_NonSolid += MoveRenderTarget;
 	}
 
 	private void MoveRenderTarget(ILContext il)
