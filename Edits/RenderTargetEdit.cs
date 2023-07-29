@@ -51,13 +51,13 @@ internal class RenderTargetEdit : IEdit
 
 		// width *= 4;
 		c.Emit(OpCodes.Ldarg_1);
-		c.Emit(OpCodes.Ldc_I4, 4);
+		c.Emit(OpCodes.Ldc_I4, ILHelper.RTScaler);
 		c.Emit(OpCodes.Mul);
 		c.Emit(OpCodes.Starg, 1);
 
 		// height *= 4;
 		c.Emit(OpCodes.Ldarg_2);
-		c.Emit(OpCodes.Ldc_I4, 4);
+		c.Emit(OpCodes.Ldc_I4, ILHelper.RTScaler);
 		c.Emit(OpCodes.Mul);
 		c.Emit(OpCodes.Starg, 2);
 	}

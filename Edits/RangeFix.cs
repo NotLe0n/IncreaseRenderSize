@@ -14,6 +14,11 @@ internal class RangeFixEdit : IEdit
 		//IL.Terraria.GameContent.Drawing.WallDrawing.DrawWalls += WallDrawing_DrawWalls;
 	}
 
+	private Point On_MainOnGetScreenOverdrawOffset(On_Main.orig_GetScreenOverdrawOffset orig)
+	{
+		return (Main.Camera.ScaledPosition - Main.Camera.UnscaledPosition).ToTileCoordinates();
+	}
+
 	private void WallDrawing_DrawWalls(ILContext il)
 	{
 		var c = new ILCursor(il);
@@ -46,12 +51,8 @@ internal class RangeFixEdit : IEdit
 		)) {
 			throw new ILEditException(GetType().FullName, nameof(WallDrawing_DrawWalls));
 		}
-
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("screenWidth"));
-		c.Emit(OpCodes.Conv_I4);
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("GameZoomTarget"));
-		c.Emit(OpCodes.Mul);
-		c.Emit(OpCodes.Conv_I4);
+		
+		c.EmitScaledOffsetVectorX();
 		c.Emit(OpCodes.Ldc_I4, 16);
 		c.Emit(OpCodes.Div);
 		c.Emit(OpCodes.Add);
@@ -85,11 +86,7 @@ internal class RangeFixEdit : IEdit
 			throw new ILEditException(GetType().FullName, nameof(WallDrawing_DrawWalls));
 		}
 
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("screenHeight"));
-		c.Emit(OpCodes.Conv_I4);
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("GameZoomTarget"));
-		c.Emit(OpCodes.Mul);
-		c.Emit(OpCodes.Conv_I4);
+		c.EmitScaledOffsetVectorY();
 		c.Emit(OpCodes.Ldc_I4, 16);
 		c.Emit(OpCodes.Div);
 		c.Emit(OpCodes.Add);

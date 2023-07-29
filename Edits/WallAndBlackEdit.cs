@@ -138,11 +138,8 @@ internal class WallAndBlackEdit : IEdit
 		)) {
 			throw new ILEditException(GetType().FullName, nameof(OffsetDrawBlack));
 		}
-
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("screenWidth"));
-		c.Emit(OpCodes.Conv_R4);
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("GameZoomTarget"));
-		c.Emit(OpCodes.Mul);
+		
+		c.EmitScaledOffsetVectorX();
 		c.Emit(OpCodes.Conv_I4);
 		c.Emit(OpCodes.Ldc_I4, 16);
 		c.Emit(OpCodes.Div);
@@ -176,15 +173,38 @@ internal class WallAndBlackEdit : IEdit
 		)) {
 			throw new ILEditException(GetType().FullName, nameof(OffsetDrawBlack));
 		}
-
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("screenHeight"));
-		c.Emit(OpCodes.Conv_R4);
-		c.Emit(OpCodes.Ldsfld, typeof(Main).GetField("GameZoomTarget"));
-		c.Emit(OpCodes.Mul);
+		
+		c.EmitScaledOffsetVectorY();
 		c.Emit(OpCodes.Conv_I4);
 		c.Emit(OpCodes.Ldc_I4, 16);
 		c.Emit(OpCodes.Div);
 		c.Emit(OpCodes.Add);
+		
+		if (!c.TryGotoNext(MoveType.After,
+			    i => i.MatchCall<Main>("GetScreenOverdrawOffset"),
+			    i => i.MatchStloc(24))) {
+			throw new ILEditException(GetType().FullName, nameof(OffsetDrawBlack));
+		}
+		
+		c.Emit(OpCodes.Ldloc, 15);
+		c.Emit(OpCodes.Ldloc, 16);
+		c.Emit(OpCodes.Ldloc, 17);
+		c.Emit(OpCodes.Ldloc, 18);
+		c.Emit(OpCodes.Ldloc, 19);
+		c.Emit(OpCodes.Ldloc, 20);
+		c.Emit(OpCodes.Ldloc, 24);
+		c.EmitDelegate((int n6, int n7, int n8, int n9, int n10, int n11, Point so) =>
+		{
+			Main.NewText("num6 = " + n6);
+			Main.NewText("num7 = " + n7);
+			Main.NewText("num8 = " + n8);
+			Main.NewText("num9 = " + n9);
+			Main.NewText("num10 = " + n10);
+			Main.NewText("num11 = " + n11);
+			Main.NewText("so = " + so);
+			Main.NewText("i1 = [" + (n8 - n11 + so.Y) + "; " + (n9 + n11 - so.Y) + ")");
+			Main.NewText("i2 = [" + (n6 - n10 + so.X) + "; " + (n7 + n10 - so.X) + ")");
+		});
 	}
 
 	private void MoveRenderTarget(ILContext il)
